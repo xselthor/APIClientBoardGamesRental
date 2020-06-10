@@ -1,0 +1,49 @@
+﻿@model IEnumerable<APIClientBoardGamesRental.Models.BGames>
+
+@{
+    ViewData["Title"] = "Lista Gier";
+}
+
+    <h1>Lista Gier</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+@foreach (var item in Model)
+{
+<table class="table">
+    <thead>
+        <tr>
+            <th style="width: 80%;" class="bg-secondary text-white">
+                @Html.DisplayFor(modelItem => item.name)
+            </th>
+            <th style="width: 80%" class="text-right bg-secondary text-white">
+                @Html.ActionLink("Edycja", "Edit", new { id = item.oid }, new { @class = "text-white" }) |
+                @Html.ActionLink("Szczegóły", "Details", new { id=item.oid }, new { @class = "text-white" }) |
+                @Html.ActionLink("Usuń", "Delete", new { id = item.oid  }, new { @class = "text-white" })
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    <td colspan="2">
+        <table style="width: 100%">
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <b>@Html.DisplayFor(modelItem => item.briefdescribe)</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 150px">
+                        <img src="@Html.DisplayFor(modelItem => item.image)" width="150" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.describe)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </td>
+    </tbody>
+</table>
+}
