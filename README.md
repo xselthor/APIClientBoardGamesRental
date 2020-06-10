@@ -1,5 +1,5 @@
 # APIClientBoardGamesRental
-Wypozyczalnia gier planszowych, praca w trakcie.
+Wypozyczalnia gier planszowych. Praca w trakcie.
 <br><br>
 <b>Działa:</b>
 <ul>
