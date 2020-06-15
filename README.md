@@ -8,7 +8,7 @@ Wypozyczalnia gier planszowych. Praca w trakcie.
   <li>Wyświetlanie listy wszystkich użytkowników</li>
 <li>Dodawanie modyfikowanie i usuwanie kont użytkowników</li>
   <li>Wyświetlanie listy ról</li>
-<li>Dodawanie modyfikowanie i usuwanie ról</li>
+<li>Dodawanie, modyfikowanie i usuwanie ról</li>
 <li>Konta użytkowników przeniesione na MongoDB
   <ul>
     <li>Wymagany NuGet: AspNetCore.Identity.MongoDbCore (https://github.com/alexandre-spieser/AspNetCore.Identity.MongoDbCore)
