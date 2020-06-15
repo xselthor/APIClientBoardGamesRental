@@ -1,7 +1,7 @@
 # APIClientBoardGamesRental
 Wypozyczalnia gier planszowych. Praca w trakcie.
 <br><br>
-<b>Działa:</b>
+<b>Rzeczy które działają:</b>
 <ol>
 <li>Klient łączy się z API i pobiera dane gier z wystawionego JSONa</li>
 <li>Dodawanie nowych gier, modyfikowanie wpisów, wyświetlanie szczegółów, usuwanie wpisów. </li>
