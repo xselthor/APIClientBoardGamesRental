@@ -12,7 +12,7 @@ Wypozyczalnia gier planszowych. Praca w trakcie.
 <li>Konta użytkowników przeniesione na MongoDB
   <ul>
     <li>Wymagany NuGet: AspNetCore.Identity.MongoDbCore (https://github.com/alexandre-spieser/AspNetCore.Identity.MongoDbCore)
-    <li>ConnectionString do bazy MongoDB należy dodać w pliku Sturtup.cs (35 wiersz)
+    <li>ConnectionString do bazy MongoDB należy dodać w pliku Startup.cs (35 wiersz)
   </ul>
 </ol>
 <br><br>
