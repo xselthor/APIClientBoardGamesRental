@@ -5,8 +5,10 @@ Wypozyczalnia gier planszowych. Praca w trakcie.
 <ol>
 <li>Klient łączy się z API i pobiera dane gier z wystawionego JSONa</li>
 <li>Dodawanie nowych gier, modyfikowanie wpisów, wyświetlanie szczegółów, usuwanie wpisów. </li>
+  <li>Wyświetlanie listy wszystkich użytkowników</li>
 <li>Dodawanie modyfikowanie i usuwanie kont użytkowników</li>
-<li>Dodawanie modyfikowanie i usuwanie ról użytkowników</li>
+  <li>Wyświetlanie listy ról</li>
+<li>Dodawanie modyfikowanie i usuwanie ról</li>
 <li>Konta użytkowników przeniesione na MongoDB
   <ul>
     <li>Wymagany NuGet: AspNetCore.Identity.MongoDbCore (https://github.com/alexandre-spieser/AspNetCore.Identity.MongoDbCore)
