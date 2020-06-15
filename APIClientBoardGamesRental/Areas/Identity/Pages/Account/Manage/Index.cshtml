@@ -1,0 +1,67 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+<div class="row">
+    <div class="col-md-6">
+        <form id="profile-form" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Username"></label>
+                <input asp-for="Username" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.PhoneNumber"></label>
+                <input asp-for="Input.PhoneNumber" class="form-control" />
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.ShortName">Skrócona nazwa</label>
+                <input asp-for="Input.ShortName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Street">Ulica</label>
+                <input asp-for="Input.Street" class="form-control" />
+                <span asp-validation-for="Input.Street" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.City">Miasto</label>
+                <input asp-for="Input.City" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.PostCode">Kod pocztowy</label>
+                <input asp-for="Input.PostCode" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Country">Państwo</label>
+                <input asp-for="Input.Country" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.NIP">NIP</label>
+                <input asp-for="Input.NIP" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.ContactPerson">Osoba kontaktowa</label>
+                <input asp-for="Input.ContactPerson" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Comments">Dodatkowe informacje</label>
+                <textarea asp-for="Input.Comments" rows="5" cols="40" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.ContactPhone">Telefon kontaktowy</label>
+                <input asp-for="Input.ContactPhone" class="form-control" />
+            </div>
+            <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

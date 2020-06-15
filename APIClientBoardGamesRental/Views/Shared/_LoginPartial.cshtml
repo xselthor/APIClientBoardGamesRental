@@ -1,12 +1,27 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser > UserManager
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+        @if (User.IsInRole("admin"))
+        {
+    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+        <div class="text-danger"><b>admin: </b>@User.Identity.Name</div>
+    </a>}
+        @if (User.IsInRole("pracownik"))
+        {
+    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+        <div class="text-warning"><b>pracownik: </b>@User.Identity.Name</div>
+    </a>}
+        @if (User.IsInRole("klient"))
+        {
+    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+        <div class="text-success"><b>klient: </b>@User.Identity.Name</div>
+    </a>}
+
     </li>
     <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">

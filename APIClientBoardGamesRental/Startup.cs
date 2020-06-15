@@ -9,10 +9,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using APIClientBoardGamesRental.Data;
+using APIClientBoardGamesRental.Models;
 using APIClientBoardGamesRental.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MongoDbGenericRepository;
 
 namespace APIClientBoardGamesRental
 {
@@ -30,11 +32,27 @@ namespace APIClientBoardGamesRental
         {
             services.AddHttpClient<IAPIService, APIService>();
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            var mongoDbContext = new MongoDbContext("", "dbBoardGames");
+            services.AddIdentity<ApplicationUser, ApplicationRole>()
+                .AddMongoDbStores<ApplicationUser, ApplicationRole, Guid>(mongoDbContext)
+                .AddDefaultTokenProviders()
+                .AddDefaultUI();
+
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //    options.UseSqlServer(
+            //        Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            //services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+
+            //services.AddIdentity<IdentityUser, IdentityRole>()
+            //    .AddDefaultTokenProviders()
+            //    .AddDefaultUI()
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            //services.AddIdentity <IdentityUser,IdentityRole>().AddDefaultUI(UIFramework.Bootstrap4).AddEntityFrameworkStores();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

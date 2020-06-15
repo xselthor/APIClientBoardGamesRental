@@ -8,6 +8,7 @@ using System.Threading.Channels;
 using System.Threading.Tasks;
 using APIClientBoardGamesRental.Models;
 using APIClientBoardGamesRental.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -22,7 +23,7 @@ namespace APIClientBoardGamesRental.Controllers
         {
             _service = service;
         }
-
+        [Authorize]
         // GET: BGamesController
         public async Task<ActionResult> Index()
         {
