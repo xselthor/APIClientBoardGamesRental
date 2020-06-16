@@ -349,44 +349,87 @@ namespace APIClientBoardGamesRental.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> RegisterUser(EditUserViewModel model)
+        //[HttpPost]
+        //public async Task<IActionResult> RegisterUser(EditUserViewModel model)
+        //{
+        //    var user = await userManager.FindByIdAsync(model.Id);
+
+        //    if (user == null)
+        //    {
+        //        ViewBag.ErrorMessage = $"Nie znalazłem użytkownika z id: {model.Id}";
+        //        return View("NotFound");
+        //    }
+        //    else
+        //    {
+        //        user.Email = model.Email;
+        //        user.UserName = model.UserName;
+        //        user.ShortName = model.ShortName;
+        //        user.Street = model.Street;
+        //        user.City = model.City;
+        //        user.PostCode = model.PostCode;
+        //        user.Country = model.Country;
+        //        user.NIP = model.NIP;
+        //        user.ContactPerson = model.ContactPerson;
+        //        user.Comments = model.Comments;
+        //        user.ContactPhone = model.ContactPhone;
+
+        //        var result = await userManager.UpdateAsync(user);
+
+        //        if (result.Succeeded)
+        //        {
+        //            return RedirectToAction("ListUsers");
+        //        }
+
+        //        foreach (var error in result.Errors)
+        //        {
+        //            ModelState.AddModelError("", error.Description);
+        //        }
+
+        //        return View(model);
+        //    }
+        //}
+
+        [HttpGet]
+        public IActionResult RegisterUser()
         {
-            var user = await userManager.FindByIdAsync(model.Id);
 
-            if (user == null)
-            {
-                ViewBag.ErrorMessage = $"Nie znalazłem użytkownika z id: {model.Id}";
-                return View("NotFound");
-            }
-            else
-            {
-                user.Email = model.Email;
-                user.UserName = model.UserName;
-                user.ShortName = model.ShortName;
-                user.Street = model.Street;
-                user.City = model.City;
-                user.PostCode = model.PostCode;
-                user.Country = model.Country;
-                user.NIP = model.NIP;
-                user.ContactPerson = model.ContactPerson;
-                user.Comments = model.Comments;
-                user.ContactPhone = model.ContactPhone;
+            return View();
+        }
 
-                var result = await userManager.UpdateAsync(user);
+        [HttpPost]
+        public async Task<IActionResult> RegisterUser(RegisterUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser
+                {
+                    Email = model.Email,
+                    UserName = model.Email,
+                    ShortName = model.ShortName,
+                    Street = model.Street,
+                    City = model.City,
+                    PostCode = model.PostCode,
+                    Country = model.Country,
+                    NIP = model.NIP,
+                    ContactPerson = model.ContactPerson,
+                    Comments = model.Comments,
+                    ContactPhone = model.ContactPhone
+                };
+
+                var result = await userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("ListUsers");
+                    return RedirectToAction("ListUsers", "Admin");
                 }
 
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
                 }
-
-                return View(model);
             }
+
+            return View(model);
         }
     }
 }
