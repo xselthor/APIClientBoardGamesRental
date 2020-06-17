@@ -37,7 +37,18 @@
                                 </div>
                             </li>
                         }
-                        
+                        @if(User.IsInRole("admin")){
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <font class="text-danger">Opcje Pracownika</font>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="ListUsers">Rezerwacje</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="ListRoles">Archiwum zamówień</a>
+                                </div>
+                            </li>
+                        }
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>

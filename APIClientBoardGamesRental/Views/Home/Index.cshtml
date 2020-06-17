@@ -1,21 +1,67 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@{ ViewData["Title"] = "Home Page"; }
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
+
+@model List<BGames>
+
+@{ ViewData["Title"] = "Strona główna"; }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h4 class="display-4">Witamy w naszej wypożyczalni</h4>
 </div>
 
-@if (User.IsInRole("admin"))
-{
-<b>jesteś zalogowany jako admin</b>}
+<br/><br />
 
-@if (User.IsInRole("pracownik"))
-{
-    <b>jesteś zalogowany jako pracownik</b>
+@{
+    int ilekolumn = 2;
+    int ilrow = 0;
+    int licz = 0;
+
+    var test = @Model.Count%3;
+
+    if (test != 0)
+    {
+        ilrow = @Model.Count/ ilekolumn + 1;
+    }
+
 }
 
-@if (User.IsInRole("klient"))
-{
-    <b>jesteś zalogowany jako klient</b>
-}
+<div class="container">
+        @for (int i = 0; i < ilrow; i++)
+        {
+    <div class="row">
+
+        @for (int j = 0; j < ilekolumn; j++)
+        {
+    @if (licz < Model.Count)
+    {
+
+    <div class="col-sm p-lg-2">
+        <div class="row">
+            <div class="col-sm h5 font-weight-bold">
+
+                <a class="text-dark" href="/Bgames/Details/@Model[licz].oid">@Model[licz].name</a>
+                
+                @Html.ActionLink("Szczegóły", "Details", new {id = Model[licz].oid}, new {@class = "text-white"})
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <div class="container">
+                    <div class="row">
+                        <div class="col- text-right" style="width: 150px;">
+                            <img src="@Model[licz].image" width="150"/>
+                        </div>
+                        <div class="col-sm">
+                            @Model[licz].briefdescribe
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>licz = licz + 1;
+                        }}
+    </div>
+        }
+    
+</div>

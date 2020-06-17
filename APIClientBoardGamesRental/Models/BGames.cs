@@ -33,5 +33,7 @@ namespace APIClientBoardGamesRental.Models
         public int ilosc { get; set; }
         public int cena { get; set; }
         public string describe { get; set; }
+
+        public int itemcount { get; set; }
     }
 }
