@@ -4,11 +4,10 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<h1>Usuwanie gry z bazy</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Czy na pewno chcesz usunąć tą grę?</h3>
 <div>
-    <h4>BGames</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -98,7 +97,7 @@
     </dl>
     
     <form asp-action="Delete">
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <button type="submit" href="#" class="btn btn-danger" onclick="return confirm('Czy jesteś pewien że chcesz usunąć: @Model.name?')">Usuń</button>
         <a asp-action="Index">Back to List</a>
     </form>
 </div>
