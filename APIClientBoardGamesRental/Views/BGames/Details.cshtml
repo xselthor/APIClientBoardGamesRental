@@ -1,4 +1,4 @@
-﻿@model APIClientBoardGamesRental.Models.BGames
+﻿@model BGamesAndBunit
 
 @{
     ViewData["Title"] = "Szczegóły";
@@ -13,12 +13,12 @@
         <thead>
         <tr>
             <th style="width: 80%;" class="bg-secondary text-white">
-                @Html.DisplayFor(model => model.name)
+                @Html.DisplayFor(model => model.BGames.name)
             </th>
             <th style="width: 80%" class="text-right bg-secondary text-white">
-                @Html.ActionLink("Edycja", "Edit", new { id = Model.oid }, new { @class = "text-white" }) |
-                @Html.ActionLink("Szczegóły", "Details", new { id=Model.oid }, new { @class = "text-white" }) |
-                @Html.ActionLink("Usuń", "Delete", new { id = Model.oid }, new { @class = "text-white" })
+                @Html.ActionLink("Edycja", "Edit", new { id = Model.BGames.oid }, new { @class = "text-white" }) |
+                @Html.ActionLink("Szczegóły", "Details", new { id=Model.BGames.oid }, new { @class = "text-white" }) |
+                @Html.ActionLink("Usuń", "Delete", new { id = Model.BGames.oid }, new { @class = "text-white" })
             </th>
         </tr>
         </thead>
@@ -28,28 +28,27 @@
                 <tbody>
                 <tr>
                     <td colspan="2" class="text-center bg-light">
-                        <b>Gra dla </b>@Html.DisplayFor(model => model.minPlayers) - @Html.DisplayFor(model => model.maxPlayers) graczy
-                        | <b>czas gry:</b> około @Html.DisplayFor(model => model.playingTime) minut 
-                        | <b>rok wydania:</b> @Html.DisplayFor(model => model.yearPublished)
-                        | <b>Ocena:</b> @Html.DisplayFor(model => model.Rating) 
-                        | <b>Rodzaj:</b> @Html.DisplayFor(model => model.itemtype) |
-                        | <b>Gatunek:</b> @Html.DisplayFor(model => model.type)
-                        | <b>Ilość:</b> @Html.DisplayFor(model => model.ilosc)
+                        <b>Gra dla </b>@Html.DisplayFor(model => model.BGames.minPlayers) - @Html.DisplayFor(model => model.BGames.maxPlayers) graczy
+                        | <b>czas gry:</b> około @Html.DisplayFor(model => model.BGames.playingTime) minut 
+                        | <b>rok wydania:</b> @Html.DisplayFor(model => model.BGames.yearPublished)
+                        | <b>Ocena:</b> @Html.DisplayFor(model => model.BGames.Rating) 
+                        | <b>Rodzaj:</b> @Html.DisplayFor(model => model.BGames.itemtype) |
+                        | <b>Gatunek:</b> @Html.DisplayFor(model => model.BGames.type)
+                        | <b>Ilość:</b> @Html.DisplayFor(model => model.BGames.ilosc)
 
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 150px">
-                        <img src="@Html.DisplayFor(model => model.image)" width="150" />
+                        <img src="@Html.DisplayFor(model => model.BGames.image)" width="150" />
                     </td>
                     <td>
-                        @Html.DisplayFor(model => model.describe)
+                        @Html.DisplayFor(model => model.BGames.describe)
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2" class="text-right bg-light">
-                        <b>Cena </b> @Html.DisplayFor(model => model.cena) zł
-
+                        <b>Cena </b> @Html.DisplayFor(model => model.BGames.cena) zł
                     </td>
                 </tr>
                 </tbody>

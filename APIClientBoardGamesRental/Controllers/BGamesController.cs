@@ -43,15 +43,18 @@ namespace APIClientBoardGamesRental.Controllers
         public async Task<ActionResult> Details(string id)
         {
             BGames bgames = new BGames();
+
+            BGamesAndBunit bGamesAndBunit = new BGamesAndBunit(); 
+
             var response = await _service.Client.GetAsync($"/api/bgames/{id}");
 
             if (response.IsSuccessStatusCode)
             {
                 var pobraneGry = response.Content.ReadAsStringAsync().Result;
-                bgames = JsonConvert.DeserializeObject<BGames>(pobraneGry);
+                bGamesAndBunit.BGames = JsonConvert.DeserializeObject<BGames>(pobraneGry);
             }
 
-            return View(bgames);
+            return View(bGamesAndBunit);
         }
 
         // GET: BGamesController/Create
