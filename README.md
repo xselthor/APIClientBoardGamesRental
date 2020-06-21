@@ -16,6 +16,6 @@ Wypozyczalnia gier planszowych. Praca w trakcie.
   </ul>
 </ol>
 <br><br>
-<img src="apiclient2.jpg">
+<img src="apiclient3.jpg">
 
 Klient działa z API <a href="https://github.com/xselthor/APIBoardGamesRental">APIBoardGamesRental</a>
