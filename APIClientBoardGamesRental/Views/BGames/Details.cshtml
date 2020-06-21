@@ -16,9 +16,17 @@
                 @Html.DisplayFor(model => model.BGames.name)
             </th>
             <th style="width: 80%" class="text-right bg-secondary text-white">
-                @Html.ActionLink("Edycja", "Edit", new { id = Model.BGames.oid }, new { @class = "text-white" }) |
+                @if (User.IsInRole("admin"))
+                 {
+                    Html.ActionLink("Edycja", "Edit", new { id = Model.BGames.oid }, new { @class = "text-white" });
+                 }
+                |
                 @Html.ActionLink("Szczegóły", "Details", new { id = Model.BGames.oid }, new { @class = "text-white" }) |
-                @Html.ActionLink("Usuń", "Delete", new { id = Model.BGames.oid }, new { @class = "text-white" })
+
+                @if (User.IsInRole("admin"))
+                {
+                    Html.ActionLink("Usuń", "Delete", new { id = Model.BGames.oid }, new { @class = "text-white" });
+                 }
             </th>
         </tr>
         </thead>
@@ -65,19 +73,22 @@
     <hr />
     @if (Model.BUnit.Count() != 0)
     {
-    <table class="table">
-        <thead class="bg-dark text-white">
-            <th scope="col" class="align-middle">#</th>
-            <th scope="col">Dostępność</th>
-            <th scope="col">Kod Kreskowy</th>
-            <th scope="col">Data wypożyczenia</th>
-            <th scope="col">Data dodania</th> 
-            <th scope="col">koszyk</th>
-            <th scope="col">Admin</th>
+<table class="table">
+    <thead class="bg-dark text-white">
+    <th scope="col" class="align-middle">#</th>
+    <th scope="col">Dostępność</th>
+    <th scope="col">Kod Kreskowy</th>
+    <th scope="col">Data wypożyczenia</th>
+    <th scope="col">Data dodania</th>
+    <th scope="col">koszyk</th>
+    @if (User.IsInRole("admin"))
+    {
+        <th scope="col">Admin</th>
+    }
         </thead>
-            <tbody>
-                @foreach (var unit in Model.BUnit)
-                {
+        <tbody>
+            @foreach (var unit in Model.BUnit)
+            {
                 <tr class="bg-light  text-black-50 border">
                     <th scope="row" class="bg-secondary text-white" style="width: 60px;">@Model.BUnit.IndexOf(unit)</th>
                     <td>
@@ -85,6 +96,16 @@
 
                             @{
                                 bool status = Convert.ToBoolean(unit.loaned);
+                                bool wkoszyku = false;
+
+                                foreach (var bask in Model.BBaskets)
+                                {
+                                    if (unit.oid == bask.unitid)
+                                    {
+                                        wkoszyku = true;
+                                        break;
+                                    }
+                                }
 
                                 if (status == false)
                                 {
@@ -98,6 +119,7 @@
                                         @Html.DisplayName("Wypożyczony")
                                     </div>
                                 }
+
                             }
                         </div>
                     </td>
@@ -105,31 +127,42 @@
                     <td style="width: 180px;">@unit.dateofrent</td>
                     <td style="width: 180px;">@unit.dateadded</td>
                     <td rowspan="2" class="bg-dark align-middle" style="width:100px;">
-                        @if (status == false)
+                        @if (wkoszyku == true)
                         {
-                            @Html.ActionLink("Do koszyka", "AddToBasket", new { id = unit.oid, gameid = unit.gameid }, new { @class = "btn btn-success align-middle", style = "width: 100px;" })            
+                            <div class="text-danger">
+                                <div class="btn btn-warning align-middle" style="width: 80px; height: 60px; ">Jest w koszyku</div>
+                            </div>
                         }
                         else
                         {
-                            <div class="btn btn-secondary align-middle" style="width: 80px; height: 60px; ">Brak</div>
+                            if (status == false)
+                            {
+                                @Html.ActionLink("Do koszyka", "AddToBasket", new { id = unit.oid, gameid = unit.gameid }, new { @class = "btn btn-success align-middle", style = "width: 100px;" })
+                            }
+                            else
+                            {
+                                <div class="btn btn-secondary align-middle" style="width: 80px; height: 60px; ">Brak</div>
+                            }
                         }
                     </td>
-                    <td rowspan="2" class="bg-secondary" style="width: 100px;">
-                        @Html.ActionLink("Edytuj", "EditUnit", new { id = unit.oid }, new { @class = "text-white btn btn-success", style = "width: 100px;" })
-                        @Html.ActionLink("Usuń", "DeleteUnit", new { id = unit.oid }, new { @class = "text-white btn btn-danger", style = "width: 100px;" })
+                    @if (User.IsInRole("admin"))
+                    {
+                        <td rowspan="2" class="bg-secondary" style="width: 100px;">
+                            @Html.ActionLink("Edytuj", "EditUnit", new { id = unit.oid }, new { @class = "text-white btn btn-success", style = "width: 100px;" })
+                            @Html.ActionLink("Usuń", "DeleteUnit", new { id = unit.oid }, new { @class = "text-white btn btn-danger", style = "width: 100px;" })
+                        </td>
+                    }
+                </tr>
+                <tr class="bg-light border">
+                    <th scope="row" class="bg-secondary text-white" style="width: 100px;">Uwagi</th>
+                    <td colspan="4">@unit.description</td>
+                </tr>
+                <tr>
+                    <td colspan="5" style="height: 10px;">
                     </td>
                 </tr>
-                    <tr class="bg-light border">
-                        <th scope="row" class="bg-secondary text-white" style="width: 100px;">Uwagi</th>
-                        <td colspan="4">@unit.description</td>
-                    </tr>
-                    <tr>
-                        <td colspan="5" style="height: 10px;">
-                            
-                        </td>
-                    </tr>
-                }
-            </tbody>
+            }
+        </tbody>
     </table>
     }
     else

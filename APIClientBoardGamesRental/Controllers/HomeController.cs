@@ -8,7 +8,10 @@ using Microsoft.Extensions.Logging;
 using APIClientBoardGamesRental.Models;
 using APIClientBoardGamesRental.Services;
 using Newtonsoft.Json;
-
+using Microsoft.AspNetCore.Http;
+using System.Diagnostics.Eventing.Reader;
+using MongoDB.Bson.Serialization.Serializers;
+using System.Xml;
 
 namespace APIClientBoardGamesRental.Controllers
 {
@@ -16,6 +19,7 @@ namespace APIClientBoardGamesRental.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private IAPIService _service;
+        public const string SessionIlKosz = "";
 
         public HomeController(ILogger<HomeController> logger, IAPIService service)
         {
@@ -25,6 +29,17 @@ namespace APIClientBoardGamesRental.Controllers
         
         public async Task<IActionResult> Index()
         {
+            List<BBasket> bBasket = new List<BBasket>();
+
+            var responseB = await _service.Client.GetAsync($"/api/BBasket/basket/{User.Identity.Name}");
+
+            if (responseB.IsSuccessStatusCode)
+            {
+                var koszyk = responseB.Content.ReadAsStringAsync().Result;
+                bBasket = JsonConvert.DeserializeObject<List<BBasket>>(koszyk);
+                HttpContext.Session.SetString("Ilkoszyk", bBasket.Count().ToString());
+            }
+
             List<BGames> bgames = new List<BGames>();
             var response = await _service.Client.GetAsync("/api/bgames/");
 

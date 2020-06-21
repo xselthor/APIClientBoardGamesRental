@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using APIClientBoardGamesRental.Models;
 using APIClientBoardGamesRental.Services;
@@ -9,11 +11,11 @@ using Newtonsoft.Json;
 
 namespace APIClientBoardGamesRental.Controllers
 {
-    public class BasketController : Controller
+    public class BBasketController : Controller
     {   
         private IAPIService _service;
         
-        public BasketController(IAPIService service)
+        public BBasketController(IAPIService service)
         {
             _service = service; 
         }
@@ -41,5 +43,33 @@ namespace APIClientBoardGamesRental.Controllers
 
             return View(basket);
         }
+
+        public async Task<ActionResult> DeleteFromBasket(string id, string gameid)
+        {
+            BBasket bBasket = new BBasket();
+
+            bBasket.username = User.Identity.Name;
+            bBasket.gameid = gameid;
+            bBasket.unitid = id;
+            bBasket.DateCreated = DateTime.Now.ToString();
+
+            var jdata = JsonConvert.SerializeObject(bBasket);
+            var httpContent = new StringContent(jdata, Encoding.UTF8, "application/json");
+
+            Console.WriteLine("---- PutAsync ------"); 
+             var httpResponse = await _service.Client.DeleteAsync($"/api/BBasket/{id}");
+            Console.WriteLine("---- PutAsync END------");
+            Console.WriteLine(httpResponse);
+            
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
     }
 }

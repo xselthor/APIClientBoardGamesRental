@@ -49,7 +49,8 @@ namespace APIClientBoardGamesRental.Controllers
 
             var response = await _service.Client.GetAsync($"/api/bgames/{id}"); 
             var response2 = await _service.Client.GetAsync($"/api/bunit/lunits/{id}");
-            
+            var response3 = await _service.Client.GetAsync($"/api/BBasket/basket/{User.Identity.Name}");
+
             if (response.IsSuccessStatusCode)
             {
                 var pobraneGry = response.Content.ReadAsStringAsync().Result;
@@ -60,6 +61,12 @@ namespace APIClientBoardGamesRental.Controllers
             {
                 var pobraneegzemplarze = response2.Content.ReadAsStringAsync().Result;
                 bGamesAndBunit.BUnit = JsonConvert.DeserializeObject<List<BUnit>>(pobraneegzemplarze);
+            }
+
+            if (response3.IsSuccessStatusCode)
+            {
+                var pobranedanezkoszyka = response3.Content.ReadAsStringAsync().Result;
+                bGamesAndBunit.BBaskets = JsonConvert.DeserializeObject<List<BBasket>>(pobranedanezkoszyka);
             }
 
             gameid = bGamesAndBunit.BGames.oid;
@@ -377,6 +384,18 @@ namespace APIClientBoardGamesRental.Controllers
             var httpResponse = await _service.Client.PostAsync($"/api/BBasket/", httpContent);
             Console.WriteLine("---- PostAsync END------");
             Console.WriteLine(httpResponse);
+
+            List<BBasket> lbBasket = new List<BBasket>();
+
+            var responseB = await _service.Client.GetAsync($"/api/BBasket/basket/{User.Identity.Name}");
+
+            if (responseB.IsSuccessStatusCode)
+            {
+                var koszyk = responseB.Content.ReadAsStringAsync().Result;
+                lbBasket = JsonConvert.DeserializeObject<List<BBasket>>(koszyk);
+                HttpContext.Session.SetString("Ilkoszyk", lbBasket.Count().ToString());
+
+            }
 
             try
             {

@@ -11,6 +11,7 @@
             <th scope="col">unitid</th>
             <th scope="col">dodano</th>
             <th scope="col">cena</th>
+            <th scope="col">opcje</th>
         </tr>
     </thead>
     <tbody>
@@ -36,6 +37,7 @@
                 <td>@item.unitid</td>
                 <td>@item.DateCreated</td>
                 <td>@cena.ToString()zł</td>
+                <td>@Html.ActionLink("Usuń", "DeleteFromBasket", new { id = item.oid, gameid = item.gameid }, new { @class = "text-white btn btn-danger", style = "width: 100px;" })</td>
             </tr>
         }
         <tr>

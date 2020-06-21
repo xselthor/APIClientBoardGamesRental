@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -43,14 +45,14 @@
                                     <font class="text-danger">Opcje Pracownika</font>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="ListUsers">Rezerwacje</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="ListRoles">Archiwum zamówień</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Worker" asp-action="Reservation">Rezerwacje</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Worker" asp-action="OArchives">Archiwum zamówień</a>
                                 </div>
                             </li>
                         }
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Basket" asp-action="Index">Koszyk</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="BBasket" asp-action="Index">Koszyk(@Context.Session.GetString("Ilkoszyk"))</a>
                         </li>
                     </ul>
                 </div>

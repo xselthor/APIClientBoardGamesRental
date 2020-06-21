@@ -18,10 +18,18 @@
                 @Html.DisplayFor(modelItem => item.name)
             </th>
             <th style="width: 80%" class="text-right bg-secondary text-white">
-                @Html.ActionLink("Edycja", "Edit", new { id = item.oid }, new { @class = "text-white" }) |
-                @Html.ActionLink("Szczegóły", "Details", new { id=item.oid }, new { @class = "text-white" }) |
-                @Html.ActionLink("Usuń", "Delete", new { id = item.oid  }, new { @class = "text-white" })
-            </th>
+                @if (User.IsInRole("admin"))
+                {
+                    Html.ActionLink("Edycja", "Edit", new { id = item.oid }, new { @class = "text-white" });
+                }
+                 |
+                @Html.ActionLink("Szczegóły", "Details", new { id = item.oid }, new { @class = "text-white" }) |
+                |
+                @if (User.IsInRole("admin"))
+                {
+                    Html.ActionLink("Usuń", "Delete", new { id = item.oid }, new { @class = "text-white" });
+                }
+                </th>
         </tr>
     </thead>
     <tbody>
