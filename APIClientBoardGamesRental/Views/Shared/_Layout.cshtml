@@ -1,4 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +32,8 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="BGames" asp-action="Index">Lista Gier</a>
                         </li>
 
-                        @if(User.IsInRole("admin")){
+                        @if (User.IsInRole("admin"))
+                        {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <font class="text-danger">Opcje Admina</font>
@@ -39,7 +44,8 @@
                                 </div>
                             </li>
                         }
-                        @if(User.IsInRole("admin")){
+                        @if (User.IsInRole("admin"))
+                        {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <font class="text-danger">Opcje Pracownika</font>
@@ -51,8 +57,11 @@
                             </li>
                         }
 
-                        <li class="nav-item">
+                    <li class="nav-item">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
                             <a class="nav-link text-dark" asp-area="" asp-controller="BBasket" asp-action="Index">Koszyk(@Context.Session.GetString("Ilkoszyk"))</a>
+                        }
                         </li>
                     </ul>
                 </div>

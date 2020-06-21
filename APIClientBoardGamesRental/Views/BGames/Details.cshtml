@@ -11,165 +11,168 @@
     <hr />
     <table class="table">
         <thead>
-        <tr>
-            <th style="width: 80%;" class="bg-secondary text-white">
-                @Html.DisplayFor(model => model.BGames.name)
-            </th>
-            <th style="width: 80%" class="text-right bg-secondary text-white">
-                @if (User.IsInRole("admin"))
-                 {
-                    Html.ActionLink("Edycja", "Edit", new { id = Model.BGames.oid }, new { @class = "text-white" });
-                 }
-                |
-                @Html.ActionLink("Szczegóły", "Details", new { id = Model.BGames.oid }, new { @class = "text-white" }) |
+            <tr>
+                <th style="width: 80%;" class="bg-secondary text-white">
+                    @Html.DisplayFor(model => model.BGames.name)
+                </th>
+                <th style="width: 80%" class="text-right bg-secondary text-white">
+                    @if (User.IsInRole("admin"))
+                    {
+                        @Html.ActionLink("Edycja", "Edit", new { id = Model.BGames.oid }, new { @class = "text-white" })
+                    }
+                    |
+                    @Html.ActionLink("Szczegóły", "Details", new { id = Model.BGames.oid }, new { @class = "text-white" }) |
 
-                @if (User.IsInRole("admin"))
-                {
-                    Html.ActionLink("Usuń", "Delete", new { id = Model.BGames.oid }, new { @class = "text-white" });
-                 }
-            </th>
-        </tr>
+                    @if (User.IsInRole("admin"))
+                    {
+                        @Html.ActionLink("Usuń", "Delete", new { id = Model.BGames.oid }, new { @class = "text-white" })
+                    }
+                </th>
+            </tr>
         </thead>
         <tbody>
         <td colspan="2">
             <table style="width: 100%">
                 <tbody>
-                <tr>
-                    <td colspan="2" class="text-center bg-light">
-                        <b>Gra dla </b>@Html.DisplayFor(model => model.BGames.minPlayers) - @Html.DisplayFor(model => model.BGames.maxPlayers) graczy
-                        | <b>czas gry:</b> około @Html.DisplayFor(model => model.BGames.playingTime) minut 
-                        | <b>rok wydania:</b> @Html.DisplayFor(model => model.BGames.yearPublished)
-                        | <b>Ocena:</b> @Html.DisplayFor(model => model.BGames.Rating) 
-                        | <b>Rodzaj:</b> @Html.DisplayFor(model => model.BGames.itemtype) |
-                        | <b>Gatunek:</b> @Html.DisplayFor(model => model.BGames.type)
-                        | <b>Ilość:</b> @Html.DisplayFor(model => model.BGames.ilosc)
+                    <tr>
+                        <td colspan="2" class="text-center bg-light">
+                            <b>Gra dla </b>@Html.DisplayFor(model => model.BGames.minPlayers) - @Html.DisplayFor(model => model.BGames.maxPlayers) graczy
+                            | <b>czas gry:</b> około @Html.DisplayFor(model => model.BGames.playingTime) minut
+                            | <b>rok wydania:</b> @Html.DisplayFor(model => model.BGames.yearPublished)
+                            | <b>Ocena:</b> @Html.DisplayFor(model => model.BGames.Rating)
+                            | <b>Rodzaj:</b> @Html.DisplayFor(model => model.BGames.itemtype) |
+                            | <b>Gatunek:</b> @Html.DisplayFor(model => model.BGames.type)
+                            | <b>Ilość:</b> @Html.DisplayFor(model => model.BGames.ilosc)
 
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 150px">
-                        <img src="@Html.DisplayFor(model => model.BGames.image)" width="150" />
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.BGames.describe)
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="text-right bg-light">
-                        <b>Cena </b> @Html.DisplayFor(model => model.BGames.cena) zł
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px">
+                            <img src="@Html.DisplayFor(model => model.BGames.image)" width="150" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.BGames.describe)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-right bg-light">
+                            <b>Cena </b> @Html.DisplayFor(model => model.BGames.cena) zł
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </td>
         </tbody>
     </table>
 </div>
-<div>
-    <a asp-action="CreateUnit">Dodaj egzemplarz</a>
-</div>
-<div>
-    <h5>Egzemplarze do wypożyczenia:</h5>
-    <hr />
-    @if (Model.BUnit.Count() != 0)
-    {
-<table class="table">
-    <thead class="bg-dark text-white">
-    <th scope="col" class="align-middle">#</th>
-    <th scope="col">Dostępność</th>
-    <th scope="col">Kod Kreskowy</th>
-    <th scope="col">Data wypożyczenia</th>
-    <th scope="col">Data dodania</th>
-    <th scope="col">koszyk</th>
-    @if (User.IsInRole("admin"))
-    {
-        <th scope="col">Admin</th>
-    }
-        </thead>
-        <tbody>
-            @foreach (var unit in Model.BUnit)
-            {
-                <tr class="bg-light  text-black-50 border">
-                    <th scope="row" class="bg-secondary text-white" style="width: 60px;">@Model.BUnit.IndexOf(unit)</th>
-                    <td>
-                        <div class="text-danger">
+@if (User.IsInRole("admin"))
+{
+    <div>
+        <a asp-action="CreateUnit">Dodaj egzemplarz</a>
+    </div>
+}
+    <div>
+        <h5>Egzemplarze do wypożyczenia:</h5>
+        <hr />
+        @if (Model.BUnit.Count() != 0)
+        {
+            <table class="table">
+                <thead class="bg-dark text-white">
+                <th scope="col" class="align-middle">#</th>
+                <th scope="col">Dostępność</th>
+                <th scope="col">Kod Kreskowy</th>
+                <th scope="col">Data wypożyczenia</th>
+                <th scope="col">Data dodania</th>
+                <th scope="col">koszyk</th>
+                @if (User.IsInRole("admin"))
+                {
+                    <th scope="col">Admin</th>
+                }
+                </thead>
+                <tbody>
+                    @foreach (var unit in Model.BUnit)
+                    {
+                        <tr class="bg-light  text-black-50 border">
+                            <th scope="row" class="bg-secondary text-white" style="width: 60px;">@Model.BUnit.IndexOf(unit)</th>
+                            <td>
+                                <div class="text-danger">
 
-                            @{
-                                bool status = Convert.ToBoolean(unit.loaned);
-                                bool wkoszyku = false;
+                                    @{
+                                        bool status = Convert.ToBoolean(unit.loaned);
+                                        bool wkoszyku = false;
 
-                                foreach (var bask in Model.BBaskets)
-                                {
-                                    if (unit.oid == bask.unitid)
-                                    {
-                                        wkoszyku = true;
-                                        break;
+                                        foreach (var bask in Model.BBaskets)
+                                        {
+                                            if (unit.oid == bask.unitid)
+                                            {
+                                                wkoszyku = true;
+                                                break;
+                                            }
+                                        }
+
+                                        if (status == false)
+                                        {
+                                            <div class="text-success">
+                                                @Html.DisplayName("Dostępny")
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="text-danger">
+                                                @Html.DisplayName("Wypożyczony")
+                                            </div>
+                                        }
+
                                     }
-                                }
-
-                                if (status == false)
+                                </div>
+                            </td>
+                            <td style="width: 200px;">@unit.barcode</td>
+                            <td style="width: 180px;">@unit.dateofrent</td>
+                            <td style="width: 180px;">@unit.dateadded</td>
+                            <td rowspan="2" class="bg-dark align-middle" style="width:100px;">
+                                @if (wkoszyku == true)
                                 {
-                                    <div class="text-success">
-                                        @Html.DisplayName("Dostępny")
+                                    <div class="text-danger">
+                                        <div class="btn btn-warning align-middle" style="width: 80px; height: 60px; ">Jest w koszyku</div>
                                     </div>
                                 }
                                 else
                                 {
-                                    <div class="text-danger">
-                                        @Html.DisplayName("Wypożyczony")
-                                    </div>
+                                    if (status == false)
+                                    {
+                                        @Html.ActionLink("Do koszyka", "AddToBasket", new { id = unit.oid, gameid = unit.gameid }, new { @class = "btn btn-success align-middle", style = "width: 100px;" })
+                                    }
+                                    else
+                                    {
+                                        <div class="btn btn-secondary align-middle" style="width: 80px; height: 60px; ">Brak</div>
+                                    }
                                 }
-
-                            }
-                        </div>
-                    </td>
-                    <td style="width: 200px;">@unit.barcode</td>
-                    <td style="width: 180px;">@unit.dateofrent</td>
-                    <td style="width: 180px;">@unit.dateadded</td>
-                    <td rowspan="2" class="bg-dark align-middle" style="width:100px;">
-                        @if (wkoszyku == true)
-                        {
-                            <div class="text-danger">
-                                <div class="btn btn-warning align-middle" style="width: 80px; height: 60px; ">Jest w koszyku</div>
-                            </div>
-                        }
-                        else
-                        {
-                            if (status == false)
+                            </td>
+                            @if (User.IsInRole("admin"))
                             {
-                                @Html.ActionLink("Do koszyka", "AddToBasket", new { id = unit.oid, gameid = unit.gameid }, new { @class = "btn btn-success align-middle", style = "width: 100px;" })
+                                <td rowspan="2" class="bg-secondary" style="width: 100px;">
+                                    @Html.ActionLink("Edytuj", "EditUnit", new { id = unit.oid }, new { @class = "text-white btn btn-success", style = "width: 100px;" })
+                                    @Html.ActionLink("Usuń", "DeleteUnit", new { id = unit.oid }, new { @class = "text-white btn btn-danger", style = "width: 100px;" })
+                                </td>
                             }
-                            else
-                            {
-                                <div class="btn btn-secondary align-middle" style="width: 80px; height: 60px; ">Brak</div>
-                            }
-                        }
-                    </td>
-                    @if (User.IsInRole("admin"))
-                    {
-                        <td rowspan="2" class="bg-secondary" style="width: 100px;">
-                            @Html.ActionLink("Edytuj", "EditUnit", new { id = unit.oid }, new { @class = "text-white btn btn-success", style = "width: 100px;" })
-                            @Html.ActionLink("Usuń", "DeleteUnit", new { id = unit.oid }, new { @class = "text-white btn btn-danger", style = "width: 100px;" })
-                        </td>
+                        </tr>
+                        <tr class="bg-light border">
+                            <th scope="row" class="bg-secondary text-white" style="width: 100px;">Uwagi</th>
+                            <td colspan="4">@unit.description</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" style="height: 10px;">
+                            </td>
+                        </tr>
                     }
-                </tr>
-                <tr class="bg-light border">
-                    <th scope="row" class="bg-secondary text-white" style="width: 100px;">Uwagi</th>
-                    <td colspan="4">@unit.description</td>
-                </tr>
-                <tr>
-                    <td colspan="5" style="height: 10px;">
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    }
-    else
-    {
-        @Html.Display("Aktualnie nie posiadamy w ofercie tej gry");
-    }
-</div>
-<div>
-    <a asp-action="Index">Powrót do listy gier</a>
-</div>
+                </tbody>
+            </table>
+        }
+        else
+        {
+            @Html.Display("Aktualnie nie posiadamy w ofercie tej gry");
+        }
+    </div>
+    <div>
+        <a asp-action="Index">Powrót do listy gier</a>
+    </div>

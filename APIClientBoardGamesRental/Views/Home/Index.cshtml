@@ -1,5 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Microsoft.EntityFrameworkCore.Metadata.Internal
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 @model List<BGames>
 
@@ -9,18 +12,19 @@
     <h4 class="display-4">Witamy w naszej wypożyczalni</h4>
 </div>
 
-<br/><br />
+<br />
+<br />
 
 @{
     int ilekolumn = 2;
     int ilrow = 0;
     int licz = 0;
 
-    var test = @Model.Count%3;
+    var test = @Model.Count % 3;
 
     if (test != 0)
     {
-        ilrow = @Model.Count/ ilekolumn + 1;
+        ilrow = @Model.Count / ilekolumn + 1;
     }
     else
     {
@@ -30,40 +34,44 @@
 }
 
 <div class="container">
-        @for (int i = 0; i < ilrow; i++)
-        {
-    <div class="row">
-
-        @for (int j = 0; j < ilekolumn; j++)
-        {
-    @if (licz < Model.Count)
+    @for (int i = 0; i < ilrow; i++)
     {
+        <div class="row">
 
-    <div class="col-sm p-lg-2">
-        <div class="row">
-            <div class="col-sm h5 font-weight-bold">
-                <a class="text-dark" href="/Bgames/Details/@Model[licz].oid">@Model[licz].name</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-                <div class="container">
-                    <div class="row">
-                        @if(!String.IsNullOrEmpty(Model[licz].image)){
-                            <div class="col- text-right" style="width: 150px;">
-                                <img src="@Model[licz].image" width="150"/>
+            @for (int j = 0; j < ilekolumn; j++)
+            {
+                @if (licz < Model.Count)
+                {
+
+                    <div class="col-sm p-lg-2">
+                        <div class="row">
+                            <div class="col-sm h5 font-weight-bold">
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    <a class="text-dark" href="/Bgames/Details/@Model[licz].oid">@Model[licz].name</a>
+                                }
                             </div>
-                        }
-                        <div class="col-sm">
-                            @Model[licz].briefdescribe
                         </div>
-                    </div>
-                </div>
-            </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="container">
+                                    <div class="row">
+                                        @if (!String.IsNullOrEmpty(Model[licz].image))
+                                        {
+                                            <div class="col- text-right" style="width: 150px;">
+                                                <img src="@Model[licz].image" width="150" />
+                                            </div>
+                                        }
+                                        <div class="col-sm">
+                                            @Model[licz].briefdescribe
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>licz = licz + 1;
+                }}
         </div>
-    </div>licz = licz + 1;
-                        }}
-    </div>
-        }
-    
+    }
+
 </div>
