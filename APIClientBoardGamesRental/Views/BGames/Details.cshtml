@@ -17,7 +17,7 @@
             </th>
             <th style="width: 80%" class="text-right bg-secondary text-white">
                 @Html.ActionLink("Edycja", "Edit", new { id = Model.BGames.oid }, new { @class = "text-white" }) |
-                @Html.ActionLink("Szczegóły", "Details", new { id=Model.BGames.oid }, new { @class = "text-white" }) |
+                @Html.ActionLink("Szczegóły", "Details", new { id = Model.BGames.oid }, new { @class = "text-white" }) |
                 @Html.ActionLink("Usuń", "Delete", new { id = Model.BGames.oid }, new { @class = "text-white" })
             </th>
         </tr>
@@ -56,6 +56,86 @@
         </td>
         </tbody>
     </table>
+</div>
+<div>
+    <a asp-action="CreateUnit">Dodaj egzemplarz</a>
+</div>
+<div>
+    <h5>Egzemplarze do wypożyczenia:</h5>
+    <hr />
+    @if (Model.BUnit.Count() != 0)
+    {
+    <table class="table">
+        <thead class="bg-dark text-white">
+            <th scope="col" class="align-middle">#</th>
+            <th scope="col">Dostępność</th>
+            <th scope="col">Kod Kreskowy</th>
+            <th scope="col">Data wypożyczenia</th>
+            <th scope="col">Data dodania</th> 
+            <th scope="col">koszyk</th>
+            <th scope="col">Admin</th>
+        </thead>
+            <tbody>
+                @foreach (var unit in Model.BUnit)
+                {
+                <tr class="bg-light  text-black-50 border">
+                    <th scope="row" class="bg-secondary text-white" style="width: 60px;">@Model.BUnit.IndexOf(unit)</th>
+                    <td>
+                        <div class="text-danger">
+
+                            @{
+                                bool status = Convert.ToBoolean(unit.loaned);
+
+                                if (status == false)
+                                {
+                                    <div class="text-success">
+                                        @Html.DisplayName("Dostępny")
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="text-danger">
+                                        @Html.DisplayName("Wypożyczony")
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </td>
+                    <td style="width: 200px;">@unit.barcode</td>
+                    <td style="width: 180px;">@unit.dateofrent</td>
+                    <td style="width: 180px;">@unit.dateadded</td>
+                    <td rowspan="2" class="bg-dark align-middle" style="width:100px;">
+                        @if (status == false)
+                        {
+                            <a class="btn btn-success align-middle" href="#" role="button">Do koszyka</a>
+                        }
+                        else
+                        {
+                            <div class="btn btn-secondary align-middle" style="width: 80px; height: 60px; ">Brak</div>
+                        }
+                    </td>
+                    <td rowspan="2" class="bg-secondary" style="width: 100px;">
+                        @Html.ActionLink("Edytuj", "EditUnit", new { id = unit.oid }, new { @class = "text-white btn btn-success", style = "width: 100px;" })
+                        @Html.ActionLink("Usuń", "DeleteUnit", new { id = unit.oid }, new { @class = "text-white btn btn-danger", style = "width: 100px;" })
+                    </td>
+                </tr>
+                    <tr class="bg-light border">
+                        <th scope="row" class="bg-secondary text-white" style="width: 100px;">Uwagi</th>
+                        <td colspan="4">@unit.description</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" style="height: 10px;">
+                            
+                        </td>
+                    </tr>
+                }
+            </tbody>
+    </table>
+    }
+    else
+    {
+        @Html.Display("Aktualnie nie posiadamy w ofercie tej gry");
+    }
 </div>
 <div>
     <a asp-action="Index">Powrót do listy gier</a>

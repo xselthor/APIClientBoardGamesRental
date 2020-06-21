@@ -1,0 +1,61 @@
+﻿@model BUnit
+
+@{
+    ViewData["Title"] = "Usuń egzemplarz";
+}
+
+<h1>Usuwanie egzemplarza z bazy danych</h1>
+
+<h3>Czy na pewno chcesz usunąć ten egzemplarz?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.oid)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.oid)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.gameid)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.gameid)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.dateadded)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.dateadded)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.loaned)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.loaned)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.dateofrent)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.dateofrent)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.barcode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.barcode)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.description)
+        </dd>
+    </dl>
+
+    <form asp-action="DeleteUnit">
+        <button type="submit" href="#" class="btn btn-danger" onclick="return confirm('Czy jesteś pewien że chcesz usunąć egzemplarz?')">Usuń</button>
+        <a asp-action="Details" asp-route-id="@Model.gameid">Powrót do listy gier</a>
+    </form>
+</div>

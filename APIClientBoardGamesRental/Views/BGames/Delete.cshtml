@@ -98,6 +98,6 @@
     
     <form asp-action="Delete">
         <button type="submit" href="#" class="btn btn-danger" onclick="return confirm('Czy jesteś pewien że chcesz usunąć: @Model.name?')">Usuń</button>
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Details" asp-route-id="@Model.oid">Powrót do strony gry</a>
     </form>
 </div>

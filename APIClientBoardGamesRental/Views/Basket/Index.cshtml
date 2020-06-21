@@ -1,0 +1,36 @@
+﻿@model BGamesAndBunitList
+@{
+}
+
+<h1>Twój koszyk:</h1>
+<table class="table">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th scope="col">gameid</th>
+            <th scope="col">unitid</th>
+            <th scope="col">dodano</th>
+            <th scope="col">cena</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.BBaskets)
+        {
+
+            var gname = "";
+            var cena = 0;
+            foreach(var ite in Model.BGames)
+            {
+                if (ite.oid == item.gameid)
+                {
+                    gname = ite.name;
+                    cena = ite.cena;
+                    break;
+                }
+            }
+            <td>@gname</td>
+            <td>@item.unitid</td>
+            <td>@item.DateCreated</td>
+            <td>@cena.ToString()zł</td>
+        }
+    </tbody>
+</table>

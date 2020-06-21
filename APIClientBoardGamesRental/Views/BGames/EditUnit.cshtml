@@ -1,0 +1,56 @@
+﻿@model BUnit
+
+@{
+    ViewData["Title"] = "Edycja egzemplarza";
+}
+
+<h1>Edycja egzemplarza</h1>
+
+<hr />
+<form asp-action="EditUnit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <input asp-for="oid" hidden class="form-control" />
+        <span asp-validation-for="oid" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="gameid" class="control-label">ID gry do której został przypisany egzemplarz</label>
+        <input asp-for="gameid" class="form-control" />
+        <span asp-validation-for="gameid" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="dateadded" class="control-label">Data wprowadzenia do bazy</label>
+        <input asp-for="dateadded" class="form-control" />
+        <span asp-validation-for="dateadded" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="loaned" class="control-label">Dostępność</label>
+        <input asp-for="loaned" class="form-control" />
+        <span asp-validation-for="loaned" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="dateofrent" class="control-label">Kiedy gra została wypożyczona</label>
+        <input asp-for="dateofrent" class="form-control" />
+        <span asp-validation-for="dateofrent" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="barcode" class="control-label">Kod kreskowy</label>
+        <input asp-for="barcode" class="form-control" />
+        <span asp-validation-for="barcode" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="description" class="control-label">Opis egzemplarza</label>
+        <input asp-for="description" class="form-control" />
+        <span asp-validation-for="description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Zapisz" class="btn btn-primary" />
+    </div>
+</form>
+<div>
+    <a asp-action="Details" asp-route-id="@Model.gameid">Powrót do strony gry</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
