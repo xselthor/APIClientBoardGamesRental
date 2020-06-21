@@ -107,7 +107,7 @@
                     <td rowspan="2" class="bg-dark align-middle" style="width:100px;">
                         @if (status == false)
                         {
-                            <a class="btn btn-success align-middle" href="#" role="button">Do koszyka</a>
+                            @Html.ActionLink("Do koszyka", "AddToBasket", new { id = unit.oid, gameid = unit.gameid }, new { @class = "btn btn-success align-middle", style = "width: 100px;" })            
                         }
                         else
                         {

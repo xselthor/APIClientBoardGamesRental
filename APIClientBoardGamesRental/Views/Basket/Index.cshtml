@@ -1,5 +1,6 @@
 ﻿@model BGamesAndBunitList
 @{
+    decimal wartosc = 0;
 }
 
 <h1>Twój koszyk:</h1>
@@ -27,10 +28,19 @@
                     break;
                 }
             }
-            <td>@gname</td>
-            <td>@item.unitid</td>
-            <td>@item.DateCreated</td>
-            <td>@cena.ToString()zł</td>
+
+            wartosc = wartosc + Convert.ToDecimal(cena);
+            
+            <tr>
+                <td>@gname</td>
+                <td>@item.unitid</td>
+                <td>@item.DateCreated</td>
+                <td>@cena.ToString()zł</td>
+            </tr>
         }
+        <tr>
+            <td colspan="3" class="bg-secondary text-right text-white">Wartość zamówienia za jeden dzień wypożyczenia</td>
+            <td class="bg-success text-white">@Html.DisplayName(wartosc.ToString()+"zł")</td>
+        </tr>
     </tbody>
 </table>

@@ -360,5 +360,32 @@ namespace APIClientBoardGamesRental.Controllers
                 return View();
             }
         }
+
+        public async Task<ActionResult> AddToBasket(string id, string gameid)
+        {
+            BBasket bBasket = new BBasket();
+
+            bBasket.username = User.Identity.Name;
+            bBasket.gameid = gameid;
+            bBasket.unitid = id;
+            bBasket.DateCreated = DateTime.Now.ToString();
+
+            var jdata = JsonConvert.SerializeObject(bBasket);
+
+            var httpContent = new StringContent(jdata, Encoding.UTF8, "application/json");
+            Console.WriteLine("---- PostAsync ------");
+            var httpResponse = await _service.Client.PostAsync($"/api/BBasket/", httpContent);
+            Console.WriteLine("---- PostAsync END------");
+            Console.WriteLine(httpResponse);
+
+            try
+            {
+                return RedirectToAction(nameof(Details), new { id = gameid });
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }
